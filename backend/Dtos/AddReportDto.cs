@@ -7,7 +7,7 @@ namespace backend.Dtos
 {
     public class AddReportDto
     {
-        public string Description { get; set; }
+        public string? Description { get; set; }
         public double Hours { get; set; }
     }
 }

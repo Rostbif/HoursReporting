@@ -9,12 +9,14 @@ namespace backend.Mappers
 {
     public static class ReportMappers
     {
-        public static GetReportDto ToReportDtoFromReport(this Report report)
+        public static GetReportDto ToGetReportDtoFromReport(this Report report)
         {
             return new GetReportDto
             {
+                Id = report.Id,
                 Description = report.Description,
-                Hours = report.Hours
+                Hours = report.Hours,
+                CreatedAt = report.CreatedAt
             };
         }
 

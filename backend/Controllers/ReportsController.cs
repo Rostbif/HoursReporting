@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using backend.Dtos;
+using backend.Interfaces;
 using backend.Mappers;
 using backend.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -25,37 +26,52 @@ namespace backend.Controllers
                 }
             };
 
+        private readonly IReportsRepository _reportsRepository;
+
+        public ReportsController(IReportsRepository reportsRepository)
+        {
+            _reportsRepository = reportsRepository;
+        }
+
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            // // currently not using await as we don't have a server...
-            // var reports = new List<Report> {
-            //     new Report {
-            //         Description= "First Report",
-            //         Hours = 2.5
-            //     },
-            //     new Report {
-            //         Description= "Second Report",
-            //         Hours = 3
-            //     }
-            // };
+            // var reportsToReturn = _reports.Select(r => r.ToReportDtoFromReport());
+            var reportsToReturn = await _reportsRepository.GetAllAsync();
 
-            var reportsToReturn = _reports.Select(r => r.ToReportDtoFromReport());
+            // Converting the Model to Dto
+            reportsToReturn.Select(reportModel => reportModel.ToGetReportDtoFromReport());
 
             // return the reports + successfull status code (200)
             return Ok(reportsToReturn);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create(AddReportDto reportToAdd)
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            _reports.Add(reportToAdd.ToReportFromAddDto());
+            // TBD - add here validation for the request using ModelState.IsValid
 
-            // return successful created status code (201)
-            return CreatedAtAction(nameof(GetAll), new { }, _reports.ToList());
+            var report = await _reportsRepository.GetById(id);
+
+            if (report == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(report);
         }
 
 
+        [HttpPost]
+        public async Task<IActionResult> Create(AddReportDto reportToAdd)
+        {
+            // Todo: add here validatio check using ModelState.IsValid
+
+            var reportModel = await _reportsRepository.CreateAsync(reportToAdd.ToReportFromAddDto());
+
+            // return successful created status code (201) + the created report (with it's id)
+            return CreatedAtAction(nameof(GetById), new { id = reportModel.Id }, reportModel.ToGetReportDtoFromReport());
+        }
     }
 }
