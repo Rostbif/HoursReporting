@@ -4,25 +4,15 @@ import { ReportGet } from "../models/Report";
 import { formatDate } from "../utils/helpers";
 import { useForm } from "react-hook-form";
 
-/**
- *
- * Have an empty state if there are no reports + a button for adding a report
- * If there are report, present them in a table (Created date, Description, Hours, Actions (in the future edit/delete))
- * Have an "add report" button on the top of the table
- * The button should add a line to the table with fields to insert data + buttons to save/cancel
- * add validation to the fields
- * By clicking on cancel we should return to the previous state
- * By clicking on save we should send the report to the server and refresh the page
- * Use React Query for fetching data...
- *
- */
 export type AddReportFormData = {
   description: string;
   hours: number;
 };
 
 const Reports = () => {
+  // holds he list of reports
   const [reports, setReports] = useState<ReportGet[]>([]);
+  // control the add report form visiblity
   const [isAddShown, setIsAddShown] = useState<boolean>(false);
 
   // using react-hook-form for managing the add report form state and errors
@@ -42,16 +32,8 @@ const Reports = () => {
     setIsAddShown(!isAddShown);
   };
 
-  const handleSaveClick = async () => {
-    const response = await createReport({ description: "tune", hours: 3.5 });
-    if (response) {
-      // Refresh the reports list from the server.
-      fetchReports();
-    }
-  };
-
+  // Handling the add report submit
   const onAddReportSubmit = handleSubmit(async (data) => {
-    // TBD -  check what we get here
     const response = await createReport(data);
 
     // if we get a response (meaning the creation was succeeded)
@@ -106,6 +88,7 @@ const Reports = () => {
             }}
           >
             Hours:
+            {/* we currently support only whole number hours. TBD - add support for double */}
             <input
               type="number"
               placeholder="Enter hours"
@@ -154,6 +137,7 @@ const Reports = () => {
           </ol>
         </div>
       ) : (
+        // Empty state if there are no reports
         <div>No Reports to Show!</div>
       )}
     </div>

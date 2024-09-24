@@ -9,8 +9,6 @@ namespace backend.Models
 {
     public class Report
     {
-        // [Key]
-        // [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string? Description { get; set; }
         public double Hours { get; set; }

@@ -1,14 +1,20 @@
-# HoursReporting
+# Hours Reporting Application
 
-A React-Asp.net Core Webapi application to manage hours reporting.
+## Overview
 
-# Server side
+This project is a full-stack hours reporting application, consisting of a backend built with ASP.NET Core and a frontend built with React. The application allows users to manage and report hours.
 
-in order to run the server on localhost using https, we need to use the following command:
-dotnet dev-certs https --trust
+## Features
 
-To run on the https profile:
-dotnet run --launch-profile https
+### Backend
 
-The swagger url:
-https://localhost:7167/swagger/index.html
+- RESTful API with CRUD operations
+- In-memory database (can be switched to SQL Server)
+- Swagger for API documentation
+- Dependency Injection for services and repositories
+
+### Frontend
+
+- React-based single-page application
+- Integration with backend RESTful APIs
+- Form handling and validation
