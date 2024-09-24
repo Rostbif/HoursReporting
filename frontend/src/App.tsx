@@ -14,7 +14,7 @@ function App() {
       }
       <h1>Welcome, Ofir Adany</h1>
       {
-        // Currently we render the Reports page directly... in the future we can add routing
+        // TBD - Currently we render the Reports page directly... in the future we can add routing (using react-router)
       }
       <Reports />
     </>

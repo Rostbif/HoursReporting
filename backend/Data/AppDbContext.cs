@@ -22,8 +22,7 @@ namespace backend.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Init some basic data.
-
+            // Init some basic data for testing. Not needed in production.
             // List<Report> reports = new List<Report>{
             //     new Report
             //  {

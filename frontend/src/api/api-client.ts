@@ -12,8 +12,10 @@ export const getAllReports = async (): Promise<ReportGet[]> => {
   return response.json();
 };
 
-// TBD - verify here which type we should return... (not sure I will use it)
-export const createReport = async (report: ReportPost) => {
+export const createReport = async (report: ReportPost): Promise<ReportGet> => {
+  // For testing purposes (server side validation)
+  //report = { description: report.description, hours: -1 };
+
   const response = await fetch(`${API_BASE_URL}/api/reports`, {
     method: "POST",
     headers: {

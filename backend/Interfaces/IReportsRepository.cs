@@ -11,7 +11,6 @@ namespace backend.Interfaces
     public interface IReportsRepository
     {
         Task<List<Report>> GetAllAsync();
-
         Task<Report?> GetById(int id);
         Task<Report> CreateAsync(Report reportToAdd);
     }
