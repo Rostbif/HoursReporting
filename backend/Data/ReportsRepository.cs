@@ -22,7 +22,7 @@ namespace backend.Data
 
         public async Task<List<Report>> GetAllAsync()
         {
-            var reports = await _context.Reports.ToListAsync();
+            var reports = await _context.Reports.OrderByDescending(key => key.CreatedAt).ToListAsync();
 
             return reports;
         }
