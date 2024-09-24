@@ -1,6 +1,6 @@
 import { ReportGet, ReportPost } from "../models/Report";
 
-const API_BASE_URL = "https://localhost:7178";
+const API_BASE_URL = "http://localhost:5293";
 
 export const getAllReports = async (): Promise<ReportGet[]> => {
   const response = await fetch(`${API_BASE_URL}/api/reports`);
